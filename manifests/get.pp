@@ -54,6 +54,7 @@ define rsync::get (
   $logfile       = undef,
   $onlyif        = undef,
   $password      = undef,
+  $extra_args    = undef,
 ) {
 
   if $keyfile {
@@ -146,7 +147,7 @@ define rsync::get (
 
   $rsync_options = join(
     delete_undef_values([$options, $mypurge, $excludeandinclude, $mylinks, $myhardlinks, $mycopylinks, $mytimes,
-      $myrecursive, $mychown, $mychmod, $mylogfile, "${myuser}${source}", $path]), ' ')
+      $myrecursive, $mychown, $mychmod, $extra_args, $mylogfile, "${myuser}${source}", $path]), ' ')
 
   if !$onlyif {
     $onlyif_real = "test `rsync --dry-run --itemize-changes ${rsync_options} | wc -l` -gt 0"
