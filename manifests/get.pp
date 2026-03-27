@@ -174,5 +174,6 @@ define rsync::get (
     #        that we only actually run rsync once
     onlyif  => $onlyif_real,
     timeout => $timeout,
+    returns => [0, 24],  # ignore files vanished before transferred error
   }
 }
